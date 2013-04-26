@@ -1,0 +1,23 @@
+<resources>
+
+    <string name="app_name">示波器</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="menu_settings">Settings</string>
+    <string name="title_activity_waveform_monitor">WaveformMonitorActivity</string>
+    <string name="no_bluetooth_found">此设备没有蓝牙，退出应用！</string>
+    <string name="bt_not_enabled_leaving">蓝牙无法打开，退出应用！</string>
+    <string name="title_paired_devices">已配对设备</string>
+    <string name="no_paired_device_found">已配对设备(未发现)</string>
+    <string name="title_new_devices">新发现设备</string>
+    <string name="no_new_device_found">新发现设备(未发现)</string>
+    <string name="scanning">搜索中…</string>
+    <string name="scan">搜索设备</string>
+    <string name="select_device">选择设备</string>
+    <string name="no_device_selected">没有选择的设备，请重新选择！</string>
+	<string name="current_device">当前设备：</string>
+	<string name="connection_status">状态：</string>
+	<string name="connecting">正在连接…</string>
+	<string name="connected">已连接</string>
+	<string name="connection_lost">连接已断开</string>
+	<string name="connect_failed">连接失败</string>
+</resources>
