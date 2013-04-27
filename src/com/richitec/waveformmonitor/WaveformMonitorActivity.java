@@ -72,7 +72,9 @@ public class WaveformMonitorActivity extends Activity {
 					BluetoothAdapter.ACTION_REQUEST_ENABLE);
 			startActivityForResult(enableIntent, REQUEST_ENABLE_BT);
 		} else {
-			startDeviceScanning();
+			if (btConnectService.getState() != BTConnectState.STATE_CONNECTED) {
+				startDeviceScanning();
+			}
 		}
 	}
 
@@ -119,6 +121,7 @@ public class WaveformMonitorActivity extends Activity {
 					if (waveformDraw == null) {
 						SurfaceView sfv = (SurfaceView) findViewById(R.id.waveform_canvas);
 						waveformDraw = new WaveformDraw(sfv);
+						waveformDraw.startDraw();
 					}
 
 				} else if (msg.arg1 == BTConnectState.STATE_CONNECT_FAILED
@@ -136,7 +139,9 @@ public class WaveformMonitorActivity extends Activity {
 			} else if (msg.what == MonitorMessage.MSG_READ.value()) {
 				int data = msg.arg1;
 				Log.d(SystemConstants.TAG, "read data: " + data);
-
+				if (data != 7) {
+					waveformDraw.add(data);
+				}
 			} else if (msg.what == MonitorMessage.MSG_NO_DEVICE_TO_RECONNECT
 					.value()) {
 
@@ -176,7 +181,15 @@ public class WaveformMonitorActivity extends Activity {
 
 	@Override
 	protected void onDestroy() {
-		wakeLock.release();
+		if (wakeLock != null) {
+			wakeLock.release();
+		}
+		if (waveformDraw != null) {
+			waveformDraw.stopDraw();
+		}
+		if (btConnectService != null) {
+			btConnectService.stop();
+		}
 		super.onDestroy();
 	}
 

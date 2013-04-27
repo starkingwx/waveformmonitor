@@ -98,6 +98,25 @@ public class BTConnectService {
 		mConnectThread.start();
 		setState(BTConnectState.STATE_CONNECTING);
 	}
+	
+	 /**
+     * Stop all threads
+     */
+    public synchronized void stop() {
+    	Log.d(SystemConstants.TAG, "stop btconnect service");
+
+        if (mConnectThread != null) {
+            mConnectThread.cancel();
+            mConnectThread = null;
+        }
+
+        if (mConnectedThread != null) {
+            mConnectedThread.cancel();
+            mConnectedThread = null;
+        }
+      
+        setState(BTConnectState.STATE_NONE);
+    }
 
 	public synchronized void connected(BluetoothSocket socket,
 			BluetoothDevice device) {
